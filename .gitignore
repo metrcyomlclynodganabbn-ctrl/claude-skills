@@ -1,0 +1,58 @@
+# Claude Skills Repository - .gitignore
+
+# Резервные копии (от синхронизации)
+*.bak
+*.backup
+
+# Логи
+*.log
+logs/
+
+# Временные файлы
+*.tmp
+*.temp
+~*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python (если будут скрипты)
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+.venv/
+venv/
+
+# Node.js (если будут инструменты)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Персональные данные (если добавятся)
+*.env
+*.env.local
+*.secret
+secrets/
+
+# Снимки экрана и скриншоты
+screenshots/
+screens/
+*.png
+*.jpg
+*.jpeg
+
+# Постоянные ссылки на .claude (персональные)
+.claude/
