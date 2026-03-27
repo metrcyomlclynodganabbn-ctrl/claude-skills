@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Verification Summary with Legacy Sites</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        .stats {
+            background: #fff;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats div {
+            margin: 5px 0;
+        }
+
+        .section {
+            background: #fff;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            color: #e74c3c;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            background: #34495e;
+            color: #fff;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .priority {
+            background: #fff3cd;
+        }
+
+        .found {
+            background: #d4edda;
+        }
+
+        .not-found {
+            background: #f8d7da;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge-video {
+            background: #dc3545;
+            color: #fff;
+        }
+
+        .badge-photo {
+            background: #28a745;
+            color: #fff;
+        }
+
+        .badge-en {
+            background: #007bff;
+            color: #fff;
+        }
+
+        .badge-ru {
+            background: #6c757d;
+            color: #fff;
+        }
+
+        .search-box {
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .search-box button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .status-col {
+            width: 120px;
+        }
+
+        .checklist {
+            margin-top: 20px;
+        }
+
+        .checklist-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: #fff;
+            border-left: 4px solid #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>📋 VERIFICATION SUMMARY WITH LEGACY SITES</h1>
+
+    <div class="stats">
+        <h3>📊 Statistics</h3>
+        <div>🔴 <strong>Records with VIDEO:</strong> 14 (0% found on site)</div>
+        <div>📸 <strong>Records with PHOTO (RU):</strong> 36 with embedded images</div>
+        <div>📸 <strong>Records with PHOTO mentions:</strong> 66 (RU: 46, EN: 20)</div>
+        <div>⚠️ <strong>Total to verify:</strong> ~80 records</div>
+    </div>
+
+    <div class="search-box">
+        <strong>🔍 Search by title:</strong>
+        <input type="text" id="searchInput" placeholder="Enter title or part of title..." onkeyup="filterTable()">
+    </div>
+
+    <div class="section">
+        <h2>🔴 CRITICAL: Records with VIDEO (14 items)</h2>
+        <p><strong>What to look for in HTML:</strong>
+            <code>&lt;iframe src="https://www.youtube.com/embed/XXXXX"&gt;&lt;/iframe&gt;</code></p>
+
+        <table id="videoTable">
+            <thead>
+                <tr>
+                    <th>Local ID</th>
+                    <th>Language</th>
+                    <th>Title</th>
+                    <th>Media Type</th>
+                    <th>Site Status</th>
+                    <th class="status-col">Found in HTML</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr class="priority">
+                    <td><code>news_003</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Vyzov Foundation launches a new incentive to support scientists</td>
+                    <td><span class="badge badge-video">ВИДЕО</span></td>
+                    <td><span style="color: #dc3545;">❌ No video</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr class="priority">
+                    <td><code>news_004</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>The VYZOV National Award in future technology established in Russia</td>
+                    <td><span class="badge badge-video">ВИДЕО</span></td>
+                    <td><span style="color: #dc3545;">❌ No video</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr class="priority">
+                    <td><code>news_005</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>'We are young, but have already achieved a lot' - Elena Eremenko</td>
+                    <td><span class="badge badge-video">ВИДЕО</span></td>
+                    <td><span style="color: #dc3545;">❌ No video</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr class="">
+                    <td><code>news_020</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Challenge of Sofico Comes to GITIS</td>
+                    <td><span class="badge badge-video">ВИДЕО</span></td>
+                    <td><span style="color: #dc3545;">❌ No video</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr class="">
+                    <td><code>news_005</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Фонд «Вызов» выступит партнёром спецноминации «Лучший педагогический вуз»</td>
+                    <td><span class="badge badge-video">ВИДЕО</span></td>
+                    <td><span style="color: #dc3545;">❌ No video</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr class="">
+                    <td><code>news_008</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Премия «ВЫЗОВ» в московском метрополитене и наземном транспорте</td>
+                    <td><span class="badge badge-video">ВИДЕО</span></td>
+                    <td><span style="color: #dc3545;">❌ No video</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr class="">
+                    <td><code>news_016</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>«Вызов» и «Национальные приоритеты» договорились о партнёрстве</td>
+                    <td><span class="badge badge-video">ВИДЕО</span></td>
+                    <td><span style="color: #dc3545;">❌ No video</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr class="">
+                    <td><code>news_020</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Завершается приём заявок на премию «ВЫЗОВ»</td>
+                    <td><span class="badge badge-video">ВИДЕО</span></td>
+                    <td><span style="color: #dc3545;">❌ No video</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr class="">
+                    <td><code>news_030</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Алексей Федоров ответил на вопросы о заявочной кампании</td>
+                    <td><span class="badge badge-video">ВИДЕО</span></td>
+                    <td><span style="color: #dc3545;">❌ No video</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr class="">
+                    <td><code>news_044</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Взаимосвязь науки и искусства – источник новых смыслов</td>
+                    <td><span class="badge badge-video">ВИДЕО</span></td>
+                    <td><span style="color: #dc3545;">❌ No video</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr class="">
+                    <td><code>news_062</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Зимние встречи фонда «Вызов»</td>
+                    <td><span class="badge badge-video">ВИДЕО</span></td>
+                    <td><span style="color: #dc3545;">❌ No video</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr class="">
+                    <td><code>news_065</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Первое ежегодное мероприятие «Science. Dialogue. Thinking»</td>
+                    <td><span class="badge badge-video">ВИДЕО</span></td>
+                    <td><span style="color: #dc3545;">❌ No video</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr class="">
+                    <td><code>news_088</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Рауль Гайнетдинов рассказал о своих исследованиях в Ливерпуле</td>
+                    <td><span class="badge badge-video">ВИДЕО</span></td>
+                    <td><span style="color: #dc3545;">❌ No video</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr class="">
+                    <td><code>news_115</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>19 сентября прошла презентация проекта «Голоса будущего»</td>
+                    <td><span class="badge badge-video">ВИДЕО</span></td>
+                    <td><span style="color: #dc3545;">❌ No video</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>📸 Records with PHOTOS (36 RU + 20 EN)</h2>
+        <p><strong>What to look for in HTML:</strong> <code>&lt;img src="..." alt="..."&gt;</code></p>
+
+        <table id="photoTable">
+            <thead>
+                <tr>
+                    <th>Local ID</th>
+                    <th>Language</th>
+                    <th>Title (approximate)</th>
+                    <th>Status</th>
+                    <th class="status-col">Found in HTML</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><code>news_004</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Лауреат премии «ВЫЗОВ» встретился с Президентом</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_006</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Формулу будущего на основе научных идей</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_009</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Роуд-шоу премии «ВЫЗОВ» в Санкт-Петербурге</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_015</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>50-кубитный ионный квантовый компьютер</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_024</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Роуд-шоу премии «ВЫЗОВ» стартовало в Новосибирске</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_028</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Фонд «Вызов» принял участие в съезде</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_031</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Вызов в науке: как сделать учёных героями</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_037</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Роуд-шоу премии «ВЫЗОВ» в Саратове</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_038</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Объявлены лауреаты Национальной премии</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_042</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Фонд «Вызов» создал институт поддержки</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_047</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>О церемонии награждения лауреатов</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_049</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Премьер-министром одобрено участие</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_051</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Илья Семериков и Екатерина Солнцева</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_053</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Первое заседание Научного комитета</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_054</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Заместитель председателя Правительства</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_058</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Пусть Россия гордится наукой</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_061</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Большие идеи с ВЫЗОВом</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_063</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Приветствие Российской академии наук</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_064</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>Премию «ВЫЗОВ» представили в Сибири</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_069</code></td>
+                    <td><span class="badge badge-ru">RU</span></td>
+                    <td>На Международном форуме</td>
+                    <td><span style="color: #28a745;">📸 In DOCX</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr style="background: #e9ecef;">
+                    <td colspan="5"><strong>EN news with photos (20 items):</strong></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_003</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_004</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_005</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_006</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_007</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_008</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_010</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_012</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_013</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_014</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_015</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_016</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_017</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_020</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_021</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_022</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_024</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_025</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_027</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_028</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+                <tr>
+                    <td><code>news_030</code></td>
+                    <td><span class="badge badge-en">EN</span></td>
+                    <td>Заголовок в DOCX</td>
+                    <td><span style="color: #ffc107;">📝 Photo mention</span></td>
+                    <td><input type="checkbox" onchange="updateCounter()"> <label>Found</label></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>✅ Verification Checklist</h2>
+        <div class="checklist-item">
+            <input type="checkbox" id="check1"> <label for="check1">Find all 14 <strong>videos</strong> in HTML
+                (YouTube/Vimeo iframes)</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="check2"> <label for="check2">Find all <strong>images</strong> in HTML (img
+                tags)</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="check3"> <label for="check3">Compare HTML with current state on
+                fondvyzov.ru</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="check4"> <label for="check4">Create a list of iframe codes for injection</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="check5"> <label for="check5">Get approval for Bitrix update</label>
+        </div>
+    </div>
+
+    <div class="stats" style="background: #d1ecf1;">
+        <h3>💾 Save Results</h3>
+        <p>After verification, check "Found" for each record. Then:</p>
+        <ul>
+            <li><strong>Ctrl+S</strong> — save HTML with marks</li>
+            <li>Or print to PDF for verification</li>
+        </ul>
+    </div>
+
+    <script>
+        function filterTable() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+
+            // Фильтруем обе таблицы
+            ['videoTable', 'photoTable'].forEach(tableId => {
+                const table = document.getElementById(tableId);
+                const rows = table.getElementsByTagName('tr');
+
+                for (let i = 1; i < rows.length; i++) {
+                    const row = rows[i];
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(filter) ? '' : 'none';
+                }
+            });
+        }
+
+        function updateCounter() {
+            // Можно добавить счётчик найденных элементов
+            console.log('Статус обновлён');
+        }
+    </script>
+</body>
+
+</html>
